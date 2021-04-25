@@ -8,12 +8,14 @@ module.exports = {
 	},
 	testEnvironment: 'jsdom',
 	moduleNameMapper: {
-		'^@/(.*)$': '<rootDir>/$1',
+		'^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+		'^@components/(.*)$': '<rootDir>/src/components/$1',
+		'^@layouts/(.*)$': '<rootDir>/src/layouts/$1',
+		'^@pages/(.*)$': '<rootDir>/src/pages/$1',
+		'^@utils/(.*)$': '<rootDir>/src/utils/$1',
+		'^@typings/(.*)$': '<rootDir>/src/typings/$1',
 	},
-	testMatch: [
-		'<rootDir>/**/*.test.(js|jsx|ts|tsx)',
-		'<rootDir>/(tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))',
-	],
+	testMatch: ['<rootDir>/**/*.test.(js|jsx|ts|tsx)'],
 	transformIgnorePatterns: ['<rootDir>/node_modules/'],
 	coverageThreshold: {
 		global: {

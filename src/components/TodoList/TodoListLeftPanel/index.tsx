@@ -16,6 +16,9 @@ const TodoListLeftPanel = ({ todos, user }: TodoListLeftPanelType) => {
 		}, 0),
 	);
 
+	const [inProcessCount] = useState(todos.length - completeCount);
+	const [efficiency] = useState((inProcessCount / todos.length) * 100);
+
 	return (
 		<>
 			<Wrapper>
@@ -33,7 +36,7 @@ const TodoListLeftPanel = ({ todos, user }: TodoListLeftPanelType) => {
 						<ul>
 							<li>
 								<h3>in process</h3>
-								<p>{todos.length - completeCount}</p>
+								<p>{inProcessCount}</p>
 							</li>
 							<li>
 								<h3>complete</h3>
@@ -44,7 +47,7 @@ const TodoListLeftPanel = ({ todos, user }: TodoListLeftPanelType) => {
 				</section>
 
 				<section>
-					<ProgressPie persentage={70} />
+					<ProgressPie persentage={efficiency} />
 				</section>
 			</Wrapper>
 		</>

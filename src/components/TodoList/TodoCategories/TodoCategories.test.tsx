@@ -8,7 +8,7 @@ describe('TodoCategories', () => {
 	it('renders "list" and "favorites"', () => {
 		const handleClick = jest.fn();
 
-		const { getByText } = render(<TodoCategories onChangeState={handleClick} />);
+		const { getByText } = render(<TodoCategories onChangeCategories={handleClick} viewFavorites={false} />);
 
 		expect(getByText(/list/)).toBeInTheDocument();
 		expect(getByText(/favorites/)).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('TodoCategories', () => {
 		it('renders all todo list', () => {
 			const handleClick = jest.fn();
 
-			const { getByText } = render(<TodoCategories onChangeState={handleClick} />);
+			const { getByText } = render(<TodoCategories onChangeCategories={handleClick} viewFavorites={false} />);
 
 			fireEvent.click(getByText(/list/));
 
@@ -30,7 +30,7 @@ describe('TodoCategories', () => {
 		it('redners favorites list', () => {
 			const handleClick = jest.fn();
 
-			const { getByText } = render(<TodoCategories onChangeState={handleClick} />);
+			const { getByText } = render(<TodoCategories onChangeCategories={handleClick} viewFavorites={false} />);
 
 			fireEvent.click(getByText(/favorites/));
 

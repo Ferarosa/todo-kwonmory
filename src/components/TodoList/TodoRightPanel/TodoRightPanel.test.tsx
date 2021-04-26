@@ -10,7 +10,7 @@ describe('TodoListRightPanel', () => {
 	let todos = [] as Todos[];
 	let handleRemove = jest.fn();
 	let handleToggle = jest.fn();
-	let handleChangeState = jest.fn();
+	let handleToggleFavorite = jest.fn();
 	let handleInsert = jest.fn();
 
 	beforeEach(() => {
@@ -31,7 +31,7 @@ describe('TodoListRightPanel', () => {
 
 		handleRemove = jest.fn();
 		handleToggle = jest.fn();
-		handleChangeState = jest.fn();
+		handleToggleFavorite = jest.fn();
 		handleInsert = jest.fn();
 	});
 
@@ -40,7 +40,7 @@ describe('TodoListRightPanel', () => {
 			const { getAllByText } = render(
 				<TodoListRightPanel
 					todos={todos}
-					onChangeState={handleChangeState}
+					onToggleFavorite={handleToggleFavorite}
 					onInsert={handleInsert}
 					onToggle={handleToggle}
 					onRemove={handleRemove}

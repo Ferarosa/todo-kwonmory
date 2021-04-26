@@ -8,10 +8,10 @@ type TodoType = {
 	todo: Todos;
 	onRemove: (id: string) => void;
 	onToggle: (id: string) => void;
-	onChangeState: (id: string) => void;
+	onToggleFavorite: (id: string) => void;
 };
 
-const Todo = ({ todo, onRemove, onToggle, onChangeState }: TodoType) => {
+const Todo = ({ todo, onRemove, onToggle, onToggleFavorite }: TodoType) => {
 	const handleToggle = (e: React.MouseEvent<Element, MouseEvent>) => {
 		e.preventDefault();
 		onToggle(todo.id);
@@ -24,7 +24,7 @@ const Todo = ({ todo, onRemove, onToggle, onChangeState }: TodoType) => {
 
 	const handleFavorite = (e: React.MouseEvent<Element, MouseEvent>) => {
 		e.preventDefault();
-		onChangeState(todo.id);
+		onToggleFavorite(todo.id);
 	};
 
 	return (

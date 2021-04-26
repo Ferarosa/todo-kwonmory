@@ -2,18 +2,21 @@ import React from 'react';
 import { Wrapper } from './styles';
 
 type TodoCategoriesType = {
-	onChangeState: (target: string) => void;
+	onChangeCategories: (target: string) => void;
+	viewFavorites: boolean;
 };
 
-const TodoCategories = ({ onChangeState }: TodoCategoriesType) => {
+const TodoCategories = ({ onChangeCategories, viewFavorites }: TodoCategoriesType) => {
 	return (
 		<>
 			<Wrapper>
-				<button onClick={() => onChangeState('list')} className="active">
+				<button onClick={() => onChangeCategories('list')} className={!viewFavorites ? 'active' : ''}>
 					list
 				</button>
 				<div></div>
-				<button onClick={() => onChangeState('favorites')}>favorites</button>
+				<button onClick={() => onChangeCategories('favorites')} className={viewFavorites ? 'active' : ''}>
+					favorites
+				</button>
 			</Wrapper>
 		</>
 	);

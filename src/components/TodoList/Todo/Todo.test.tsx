@@ -8,7 +8,7 @@ describe('Todo', () => {
 	let todo = {} as Todos;
 	let handleRemove = jest.fn();
 	let handleToggle = jest.fn();
-	let changeState = jest.fn();
+	let handleToggleFavorite = jest.fn();
 
 	beforeEach(() => {
 		todo = {
@@ -20,11 +20,12 @@ describe('Todo', () => {
 
 		handleRemove = jest.fn();
 		handleToggle = jest.fn();
+		handleToggleFavorite = jest.fn();
 	});
 
 	it('renders title', () => {
 		const { getByText } = render(
-			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onChangeState={changeState} />,
+			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onToggleFavorite={handleToggleFavorite} />,
 		);
 
 		expect(getByText('밥 먹기')).toBeInTheDocument();
@@ -32,7 +33,7 @@ describe('Todo', () => {
 
 	it('can toggle item', () => {
 		const { container, getByText } = render(
-			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onChangeState={changeState} />,
+			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onToggleFavorite={handleToggleFavorite} />,
 		);
 
 		const RemoveButton = container.querySelector('.remove') as Element;
@@ -48,7 +49,7 @@ describe('Todo', () => {
 
 	it('can check item', () => {
 		const { getByText, container } = render(
-			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onChangeState={changeState} />,
+			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onToggleFavorite={handleToggleFavorite} />,
 		);
 
 		expect(getByText(/밥 먹기/)).toBeInTheDocument();

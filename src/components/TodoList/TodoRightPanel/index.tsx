@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import TodoCategories from '../TodoCategories';
 import TodoInput from '@components/TodoList/TodoInput';
 import TodoLists from '@components/TodoList/TodoLists';
@@ -7,19 +7,35 @@ import { Wrapper } from './styles';
 
 type TodoListRightPanelType = {
 	todos: Todos[];
-	onChangeState: (value: string) => void;
+	onToggleFavorite: (value: string) => void;
 	onInsert: (value: string) => void;
 	onToggle: (id: string) => void;
 	onRemove: (id: string) => void;
 };
 
-const TodoListRightPanel = ({ todos, onChangeState, onInsert, onRemove, onToggle }: TodoListRightPanelType) => {
+const TodoListRightPanel = ({ todos, onToggleFavorite, onInsert, onRemove, onToggle }: TodoListRightPanelType) => {
+	const [viewFavorites, setViewFavorites] = useState(false);
+
+	const handleChangeCategories = useCallback((e) => {
+		if (e === 'favorites') {
+			setViewFavorites(true);
+		} else {
+			setViewFavorites(false);
+		}
+	}, []);
+
 	return (
 		<>
 			<Wrapper>
 				<TodoInput onInsert={onInsert} />
-				<TodoCategories onChangeState={onChangeState} />
-				<TodoLists todos={todos} onRemove={onRemove} onToggle={onToggle} onChangeState={onChangeState} />
+				<TodoCategories onChangeCategories={handleChangeCategories} viewFavorites={viewFavorites} />
+				<TodoLists
+					todos={todos}
+					viewFavorites={viewFavorites}
+					onRemove={onRemove}
+					onToggle={onToggle}
+					onToggleFavorite={onToggleFavorite}
+				/>
 			</Wrapper>
 		</>
 	);

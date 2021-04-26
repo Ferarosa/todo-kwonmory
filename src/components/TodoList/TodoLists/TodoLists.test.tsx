@@ -25,7 +25,9 @@ describe('TodoLists', () => {
 	});
 	describe('when have todo list data', () => {
 		it('renders todo items', () => {
-			const { getByText } = render(<TodoLists todos={todoList} onRemove={jest.fn()} onToggle={jest.fn()} />);
+			const { getByText } = render(
+				<TodoLists todos={todoList} onRemove={jest.fn()} onToggle={jest.fn()} onChangeState={jest.fn()} />,
+			);
 
 			expect(getByText(/밥 먹기/)).toBeInTheDocument();
 			expect(getByText(/공부 하기/)).toBeInTheDocument();

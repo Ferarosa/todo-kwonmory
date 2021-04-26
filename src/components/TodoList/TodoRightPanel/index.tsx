@@ -19,7 +19,7 @@ const TodoListRightPanel = ({ todos, onChangeState, onInsert, onRemove, onToggle
 			<Wrapper>
 				<TodoInput onInsert={onInsert} />
 				<TodoCategories onChangeState={onChangeState} />
-				<TodoLists todos={todos} onRemove={onRemove} onToggle={onToggle} />
+				<TodoLists todos={todos} onRemove={onRemove} onToggle={onToggle} onChangeState={onChangeState} />
 			</Wrapper>
 		</>
 	);

@@ -7,11 +7,12 @@ type TodoListsType = {
 	todos: Todos[];
 	onRemove: (id: string) => void;
 	onToggle: (id: string) => void;
+	onChangeState: (id: string) => void;
 };
 
-const TodoLists = ({ todos, onRemove, onToggle }: TodoListsType) => {
+const TodoLists = ({ todos, onRemove, onToggle, onChangeState }: TodoListsType) => {
 	const todoList = todos.map((todo) => (
-		<Todo todo={todo} key={`todo-${todo.id}`} onRemove={onRemove} onToggle={onToggle} />
+		<Todo todo={todo} key={`todo-${todo.id}`} onRemove={onRemove} onToggle={onToggle} onChangeState={onChangeState} />
 	));
 
 	if (todos.length === 0) {

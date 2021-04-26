@@ -8,9 +8,20 @@ import { Todos } from '../types';
 const TodoListWrapper = () => {
 	const [todoList, setTodoList] = useState([] as Todos[]);
 
-	const handleState = (target: string) => {
-		console.log(target);
-	};
+	const handleChangeState = useCallback(
+		(id: string) => {
+			setTodoList([
+				...todoList.map((todo) => {
+					if (todo.id === id) {
+						todo.favorites = !todo.favorites;
+					}
+
+					return todo;
+				}),
+			]);
+		},
+		[todoList],
+	);
 
 	const handleInsert = useCallback(
 		(value: string) => {
@@ -59,7 +70,7 @@ const TodoListWrapper = () => {
 				<TodoListLeftPanel todos={todoList} user={user} />
 				<TodoListRightPanel
 					todos={todoList}
-					onChangeState={handleState}
+					onChangeState={handleChangeState}
 					onInsert={handleInsert}
 					onRemove={handleRemove}
 					onToggle={handleToggle}

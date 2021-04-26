@@ -8,6 +8,7 @@ describe('Todo', () => {
 	let todo = {} as Todos;
 	let handleRemove = jest.fn();
 	let handleToggle = jest.fn();
+	let changeState = jest.fn();
 
 	beforeEach(() => {
 		todo = {
@@ -22,13 +23,17 @@ describe('Todo', () => {
 	});
 
 	it('renders title', () => {
-		const { getByText } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={jest.fn()} />);
+		const { getByText } = render(
+			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onChangeState={changeState} />,
+		);
 
 		expect(getByText('밥 먹기')).toBeInTheDocument();
 	});
 
 	it('can toggle item', () => {
-		const { container, getByText } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} />);
+		const { container, getByText } = render(
+			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onChangeState={changeState} />,
+		);
 
 		const RemoveButton = container.querySelector('.remove') as Element;
 
@@ -42,7 +47,9 @@ describe('Todo', () => {
 	it('can edit item', () => {});
 
 	it('can check item', () => {
-		const { getByText, container } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} />);
+		const { getByText, container } = render(
+			<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} onChangeState={changeState} />,
+		);
 
 		expect(getByText(/밥 먹기/)).toBeInTheDocument();
 

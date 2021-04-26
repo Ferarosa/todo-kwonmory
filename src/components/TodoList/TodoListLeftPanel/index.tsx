@@ -21,10 +21,8 @@ const TodoListLeftPanel = ({ todos, user }: TodoListLeftPanelType) => {
 			}, 0),
 		);
 
-		if (todos.length !== 0) {
-			setInProcessCount(todos.length - completeCount);
-			setEfficiency(Math.floor((completeCount / todos.length) * 100));
-		}
+		setInProcessCount(todos.length ? todos.length - completeCount : 0);
+		setEfficiency(todos.length ? Math.floor((completeCount / todos.length) * 100) : 0);
 	}, [todos, completeCount, inProcessCount]);
 
 	return (

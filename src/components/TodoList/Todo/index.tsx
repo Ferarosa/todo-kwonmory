@@ -8,9 +8,10 @@ type TodoType = {
 	todo: Todos;
 	onRemove: (id: string) => void;
 	onToggle: (id: string) => void;
+	onChangeState: (id: string) => void;
 };
 
-const Todo = ({ todo, onRemove, onToggle }: TodoType) => {
+const Todo = ({ todo, onRemove, onToggle, onChangeState }: TodoType) => {
 	const handleToggle = (e: React.MouseEvent<Element, MouseEvent>) => {
 		e.preventDefault();
 		onToggle(todo.id);
@@ -21,10 +22,17 @@ const Todo = ({ todo, onRemove, onToggle }: TodoType) => {
 		onRemove(todo.id);
 	};
 
+	const handleFavorite = (e: React.MouseEvent<Element, MouseEvent>) => {
+		e.preventDefault();
+		onChangeState(todo.id);
+	};
+
 	return (
 		<Wrapper>
 			<div>
-				<span className="favorites">{todo.favorites ? <MdStar /> : <MdStarBorder />}</span>
+				<span className="favorites" onClick={(e) => handleFavorite(e)}>
+					{todo.favorites ? <MdStar /> : <MdStarBorder />}
+				</span>
 				<span className="check" onClick={(e) => handleToggle(e)}>
 					{todo.checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
 				</span>

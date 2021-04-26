@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -52,12 +53,15 @@ const config: webpack.Configuration = {
 			async: false,
 		}),
 		new webpack.EnvironmentPlugin({ NODE_ENV: isDevelopment ? 'development' : 'production' }),
-		new HtmlWebpackPlugin(),
+		new HtmlWebpackPlugin({
+			template: path.resolve(__dirname, 'index.html'),
+		}),
+		new CleanWebpackPlugin(),
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
-		publicPath: '/dist/',
+		publicPath: '/',
 	},
 };
 

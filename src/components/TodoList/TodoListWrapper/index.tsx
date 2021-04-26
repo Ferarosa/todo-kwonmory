@@ -1,40 +1,53 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import TodoListLeftPanel from '../TodoListLeftPanel';
 import TodoListRightPanel from '../TodoRightPanel';
-import { Todos } from '../types';
 import { Wrapper } from './styles';
+import { v4 as uuidv4 } from 'uuid';
+import { Todos } from '../types';
 
 const TodoListWrapper = () => {
-	const todoList = [
-		{
-			id: 1,
-			title: '투두 리스트 만들기',
-			favorites: false,
-			checked: true,
-		},
-		{
-			id: 2,
-			title: '투두 리스트 만들기2',
-			favorites: false,
-			checked: false,
-		},
-	] as Todos[];
+	const [todoList, setTodoList] = useState([] as Todos[]);
 
 	const handleState = (target: string) => {
 		console.log(target);
 	};
 
-	const handleInsert = (value: string) => {
-		console.log(value);
-	};
+	const handleInsert = useCallback(
+		(value: string) => {
+			setTodoList([
+				...todoList,
+				{
+					id: uuidv4(),
+					title: value,
+					favorites: false,
+					checked: false,
+				},
+			]);
+		},
+		[todoList],
+	);
 
-	const handleRemove = (id: number) => {
-		console.log(id);
-	};
+	const handleRemove = useCallback(
+		(id: string) => {
+			setTodoList([...todoList.filter((todo) => todo.id !== id)]);
+		},
+		[todoList],
+	);
 
-	const handleToggle = (id: number) => {
-		console.log(id);
-	};
+	const handleToggle = useCallback(
+		(id: string) => {
+			setTodoList([
+				...todoList.map((todo) => {
+					if (todo.id === id) {
+						todo.checked = !todo.checked;
+					}
+
+					return todo;
+				}),
+			]);
+		},
+		[todoList],
+	);
 
 	const user = {
 		email: 'kwonmory@gmail.com',

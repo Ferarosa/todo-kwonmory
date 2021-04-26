@@ -2,30 +2,42 @@ import React from 'react';
 import { Todos } from '../types';
 import { Wrapper } from './styles';
 
-import { MdHighlightOff } from 'react-icons/md';
+import { MdDelete, MdStar, MdStarBorder, MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 
 type TodoType = {
 	todo: Todos;
-	onRemove: (id: number) => void;
-	onToggle: (id: number) => void;
+	onRemove: (id: string) => void;
+	onToggle: (id: string) => void;
 };
 
 const Todo = ({ todo, onRemove, onToggle }: TodoType) => {
+	const handleToggle = (e: React.MouseEvent<Element, MouseEvent>) => {
+		e.preventDefault();
+		onToggle(todo.id);
+	};
+
+	const handleRemove = (e: React.MouseEvent<Element, MouseEvent>) => {
+		e.preventDefault();
+		onRemove(todo.id);
+	};
+
 	return (
-		<Wrapper
-			onClick={(e) => {
-				e.preventDefault();
-				onToggle(todo.id);
-			}}
-		>
-			<span>{todo.title}</span>
-			<MdHighlightOff
-				onClick={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					onRemove(todo.id);
-				}}
-			/>
+		<Wrapper>
+			<div>
+				<span className="favorites">{todo.favorites ? <MdStar /> : <MdStarBorder />}</span>
+				<span className="check" onClick={(e) => handleToggle(e)}>
+					{todo.checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+				</span>
+				<span className={'title ' + (todo.checked ? 'checked' : '')} onClick={(e) => handleToggle(e)}>
+					{todo.title}
+				</span>
+			</div>
+
+			<div>
+				<span className="remove" onClick={(e) => handleRemove(e)}>
+					<MdDelete />
+				</span>
+			</div>
 		</Wrapper>
 	);
 };

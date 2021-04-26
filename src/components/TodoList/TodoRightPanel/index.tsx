@@ -9,8 +9,8 @@ type TodoListRightPanelType = {
 	todos: Todos[];
 	onChangeState: (value: string) => void;
 	onInsert: (value: string) => void;
-	onToggle: (id: number) => void;
-	onRemove: (id: number) => void;
+	onToggle: (id: string) => void;
+	onRemove: (id: string) => void;
 };
 
 const TodoListRightPanel = ({ todos, onChangeState, onInsert, onRemove, onToggle }: TodoListRightPanelType) => {

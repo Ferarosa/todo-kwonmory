@@ -7,6 +7,30 @@ import TodoListLeftPanel from '.';
 import { Todos } from '../types';
 
 describe('TodoListLeftPanel', () => {
+	let todoList = [] as Todos[];
+
+	beforeEach(() => {
+		todoList = [
+			{
+				id: '1',
+				title: '투두 리스트 만들기',
+				favorites: false,
+				checked: true,
+			},
+			{
+				id: '2',
+				title: '투두 리스트 만들기2',
+				favorites: false,
+				checked: false,
+			},
+			{
+				id: '3',
+				title: '투두 리스트 만들기3',
+				favorites: false,
+				checked: false,
+			},
+		];
+	});
 	it('has 진행 and 완료', () => {
 		const { getByText } = render(<TodoListLeftPanel todos={[]} user={{ email: '' }} />);
 
@@ -16,48 +40,12 @@ describe('TodoListLeftPanel', () => {
 
 	describe('when has Todolist data', () => {
 		it('renders 진행 수', () => {
-			const todoList = [
-				{
-					id: 1,
-					title: '투두 리스트 만들기',
-					favorites: false,
-					checked: false,
-				},
-				{
-					id: 2,
-					title: '투두 리스트 만들기2',
-					favorites: false,
-					progess: 0,
-				},
-			] as Todos[];
-
 			const { getByText } = render(<TodoListLeftPanel todos={todoList} user={{ email: '' }} />);
 
 			expect(getByText(/2/)).toBeInTheDocument();
 		});
 
 		it('renders 완료 개수', () => {
-			const todoList = [
-				{
-					id: 1,
-					title: '투두 리스트 만들기',
-					favorites: false,
-					checked: true,
-				},
-				{
-					id: 2,
-					title: '투두 리스트 만들기2',
-					favorites: false,
-					checked: false,
-				},
-				{
-					id: 3,
-					title: '투두 리스트 만들기3',
-					favorites: false,
-					checked: false,
-				},
-			] as Todos[];
-
 			const { getByText } = render(<TodoListLeftPanel todos={todoList} user={{ email: '' }} />);
 
 			expect(getByText(/1/)).toBeInTheDocument();

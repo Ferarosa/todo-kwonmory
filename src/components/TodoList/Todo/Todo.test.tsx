@@ -2,36 +2,35 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Todo from '.';
+import { Todos } from '../types';
 
 describe('Todo', () => {
-	it('renders title', () => {
-		const todo = {
-			id: 1,
+	let todo = {} as Todos;
+	let handleRemove = jest.fn();
+	let handleToggle = jest.fn();
+
+	beforeEach(() => {
+		todo = {
+			id: '1',
 			title: '밥 먹기',
 			favorites: false,
 			checked: false,
 		};
-		const handleRemove = jest.fn();
 
+		handleRemove = jest.fn();
+		handleToggle = jest.fn();
+	});
+
+	it('renders title', () => {
 		const { getByText } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={jest.fn()} />);
 
 		expect(getByText('밥 먹기')).toBeInTheDocument();
 	});
 
 	it('can toggle item', () => {
-		const todo = {
-			id: 1,
-			title: '밥 먹기',
-			favorites: false,
-			checked: false,
-		};
-
-		const handleRemove = jest.fn();
-		const handleToggle = jest.fn();
-
 		const { container, getByText } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} />);
 
-		const RemoveButton = container.querySelector('svg') as Element;
+		const RemoveButton = container.querySelector('.remove') as Element;
 
 		expect(getByText(/밥 먹기/)).toBeInTheDocument();
 
@@ -43,22 +42,15 @@ describe('Todo', () => {
 	it('can edit item', () => {});
 
 	it('can check item', () => {
-		const todo = {
-			id: 1,
-			title: '밥 먹기',
-			favorites: false,
-			checked: false,
-		};
-
-		const handleRemove = jest.fn();
-		const handleToggle = jest.fn();
-
-		const { getByText } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} />);
+		const { getByText, container } = render(<Todo todo={todo} onRemove={handleRemove} onToggle={handleToggle} />);
 
 		expect(getByText(/밥 먹기/)).toBeInTheDocument();
 
-		fireEvent.click(getByText(/밥 먹기/));
+		const checkElement = container.querySelector('.check') as Element;
 
-		expect(handleToggle).toBeCalled();
+		fireEvent.click(getByText(/밥 먹기/));
+		fireEvent.click(checkElement);
+
+		expect(handleToggle).toBeCalledTimes(2);
 	});
 });

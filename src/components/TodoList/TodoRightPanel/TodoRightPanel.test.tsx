@@ -7,33 +7,43 @@ import TodoListRightPanel from '.';
 import { Todos } from '../types';
 
 describe('TodoListRightPanel', () => {
+	let todos = [] as Todos[];
+	let handleRemove = jest.fn();
+	let handleToggle = jest.fn();
+	let handleChangeState = jest.fn();
+	let handleInsert = jest.fn();
+
+	beforeEach(() => {
+		todos = [
+			{
+				id: '1',
+				title: '투두 리스트 만들기',
+				favorites: false,
+				checked: false,
+			},
+			{
+				id: '2',
+				title: '투두 리스트 만들기2',
+				favorites: false,
+				checked: false,
+			},
+		];
+
+		handleRemove = jest.fn();
+		handleToggle = jest.fn();
+		handleChangeState = jest.fn();
+		handleInsert = jest.fn();
+	});
+
 	describe('when has Todolist data', () => {
 		it('renders 진행 수', () => {
-			const todoList = [
-				{
-					id: 1,
-					title: '투두 리스트 만들기',
-					favorites: false,
-					checked: false,
-				},
-				{
-					id: 2,
-					title: '투두 리스트 만들기2',
-					favorites: false,
-					checked: false,
-				},
-			] as Todos[];
-
-			const handleChangeState = jest.fn();
-			const handleInsert = jest.fn();
-
 			const { getAllByText } = render(
 				<TodoListRightPanel
-					todos={todoList}
+					todos={todos}
 					onChangeState={handleChangeState}
 					onInsert={handleInsert}
-					onToggle={jest.fn()}
-					onRemove={jest.fn()}
+					onToggle={handleToggle}
+					onRemove={handleRemove}
 				/>,
 			);
 

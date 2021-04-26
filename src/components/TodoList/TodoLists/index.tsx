@@ -1,22 +1,30 @@
 import React from 'react';
 import Todo from '../Todo';
 import { Todos } from '../types';
-import { Wrapper } from './styles';
+import { Empty, Wrapper } from './styles';
 
 type TodoListsType = {
 	todos: Todos[];
-	onRemove: (id: number) => void;
-	onToggle: (id: number) => void;
+	onRemove: (id: string) => void;
+	onToggle: (id: string) => void;
 };
 
 const TodoLists = ({ todos, onRemove, onToggle }: TodoListsType) => {
+	const todoList = todos.map((todo) => (
+		<Todo todo={todo} key={`todo-${todo.id}`} onRemove={onRemove} onToggle={onToggle} />
+	));
+
+	if (todos.length === 0) {
+		return (
+			<Empty>
+				<span className="empty">리스트가 없습니다.</span>
+			</Empty>
+		);
+	}
+
 	return (
 		<Wrapper>
-			<ul>
-				{todos.map((todo) => (
-					<Todo todo={todo} key={`todo-${todo.id}`} onRemove={onRemove} onToggle={onToggle} />
-				))}
-			</ul>
+			<ul>{todoList}</ul>
 		</Wrapper>
 	);
 };

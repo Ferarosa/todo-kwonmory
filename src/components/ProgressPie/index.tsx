@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Wrapper } from './styles';
 
 type ProgressPieType = {
@@ -6,7 +6,12 @@ type ProgressPieType = {
 };
 
 const ProgressPie = ({ persentage }: ProgressPieType) => {
-	const [turn] = useState(persentage / 100);
+	const [turn, setTurn] = useState(0);
+
+	useEffect(() => {
+		if (persentage === 0) setTurn(0);
+		else setTurn(persentage / 100);
+	}, [persentage, setTurn]);
 
 	return (
 		<>

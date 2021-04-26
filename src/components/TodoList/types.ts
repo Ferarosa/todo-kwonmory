@@ -1,5 +1,5 @@
 export interface Todos {
-	id: number;
+	id: string;
 	title: string;
 	favorites: boolean;
 	checked: boolean;
